@@ -24,19 +24,9 @@
 #' rownames(data) = c("A2M","LRP1","AANAT","MTNR1A","ACE")
 #' cluster=c(rep(1,100),rep(2,100))
 #' cluster_analysis(data,rownames(data),cluster,dif.exp=FALSE)
-cluster_analysis = function(data,genes,cluster,c.names=NULL,dif.exp=TRUE,s.pval=10^-2,markers=NULL,write=TRUE,verbose=TRUE){
+cluster_analysis = function(data,genes,cluster,c.names,dif.exp=TRUE,s.pval=10^-2,markers=NULL,write=TRUE,verbose=TRUE){
   if (dir.exists("cluster-analysis")==FALSE){
     dir.create("cluster-analysis")
-  }
-  if (is.null(c.names)==TRUE){
-    c.names = paste("cluster",1:max(cluster))
-  }
-  if (min(cluster)!=1){
-    cluster = cluster + 1 - min(cluster)
-  }
-  if (length(c.names)!=max(cluster) | sum(duplicated(c.names))>0 | grepl("/",paste(c.names,collapse =""))){
-    cat("The length of c.names must be equal to the number of clusters and must contain no duplicates. The cluster names must not include special characters")
-    return()
   }
   rownames(data) = genes
   n.cluster = max(cluster)
